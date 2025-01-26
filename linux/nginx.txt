@@ -1,3 +1,11 @@
+Install:
+sudo apt install nginx
+sudo apt install python3-certbot-nginx
+sudo systemctl start nginx
+sudo systemctl enable nginx
+sudo systemctl status nginx
+sudo ufw allow 'Nginx Full'
+
 Test Server:
 server {
     listen 8085;
@@ -10,11 +18,13 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 }
+
 Main config file:
 /etc/nginx/nginx.conf
 default config file:
 /etc/nginx/sites-available/default
 
-sudo systemctl status nginx
+Reload file:
 sudo systemctl reload nginx
+Test file:
 sudo nginx -t
