@@ -1,0 +1,35 @@
+-> Open PowerShell as Administrator:
+wsl --install
+-> Restart computer
+wsl --list --online
+wsl --install -d <DistributionName>
+wsl
+-> install server package on wsl Linux
+sudo apt update && sudo apt upgrade -y
+sudo apt install nginx -y
+sudo service nginx start
+curl http://localhost
+ip a
+hostname -I
+http://<ip>
+-> install Nginx
+sudo apt update && sudo apt install nginx -y
+sudo nano /etc/nginx/sites-available/port_forward_test
+
+server {
+    listen 8085;
+    server_name _;
+
+    location / {
+        return 200 'Port forwarding is working!';
+        add_header Content-Type text/plain;
+    }
+}
+
+sudo ln -s /etc/nginx/sites-available/port_forward_test /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+
+-> Allow traffic
+
+

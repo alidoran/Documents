@@ -1,0 +1,27 @@
+Port forward:
+Go to IP → Firewall → NAT.
+
+Add a rule:
+Chain: dstnat
+Dst. Address: Your public IP (or leave it blank if it's any incoming traffic)
+Dst. Port: 8085
+Action: dst-nat
+To Addresses: IP address of your WSL instance (or the machine running the server)
+To Ports: 8085
+
+check log for a port:
+/ip firewall nat add chain=dstnat dst-port=<port> protocol=tcp action=dst-nat to-addresses=<ip> to-ports=<port> log=yes log-prefix="NAT_PORT_<port>”
+
+check log:
+/log print
+Live log:
+/log print follow
+
+drop an ip:
+/ip firewall filter add chain=input src-address=<ip> action=drop
+
+Blocking a range of port:
+/ip firewall filter add chain=input protocol=tcp dst-port=8000-8090 action=drop
+
+Change the SSH port:
+/ip service set ssh port=NEW_PORT

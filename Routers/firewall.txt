@@ -1,0 +1,2 @@
+allowing incoming TCP:
+/ip firewall filter add chain=input protocol=tcp dst-port=<port> action=accept
