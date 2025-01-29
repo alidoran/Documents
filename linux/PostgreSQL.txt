@@ -37,6 +37,12 @@ Delete the user:
 DROP ROLE username;
 
 --------
+Give Super user permission:
+sudo -u postgres psql
+psql -U postgres
+ALTER ROLE username WITH SUPERUSER;
+\du
+
 List all databases:
 \l
 Connect to a database:
