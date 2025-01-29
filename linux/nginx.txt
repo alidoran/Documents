@@ -7,6 +7,7 @@ sudo systemctl status nginx
 sudo ufw allow 'Nginx Full'
 
 Test Server:
+sudo nano /etc/nginx/sites-available/test
 server {
     listen 8085;
     server_name _;
