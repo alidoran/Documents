@@ -101,6 +101,9 @@ cntl X
 pm2 start webhook_listener.js
 pm2 status
 
+install java:
+sudo apt install openjdk-21-jdk -y
+
 
 Install nginx through nginx.txt install part.   
 Install domain SSL by DomainSSL.txt file.
