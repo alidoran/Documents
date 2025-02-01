@@ -25,6 +25,9 @@ Main config file:
 default config file:
 /etc/nginx/sites-available/default
 
+if a new file is created:
+sudo ln -s /etc/nginx/sites-available/newfile /etc/nginx/sites-enabled/
+
 Reload file:
 sudo systemctl reload nginx
 Test file:
