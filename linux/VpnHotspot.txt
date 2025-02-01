@@ -1,0 +1,57 @@
+sudo apt update
+sudo apt install isc-dhcp-server -y
+sudo nano /etc/dhcp/dhcpd.conf
+=>
+subnet 192.168.1.0 netmask 255.255.255.0 {
+    range 192.168.1.100 192.168.1.200;  # IP range for DHCP clients
+    option routers 192.168.1.1;         # Gateway IP
+    option domain-name-servers 8.8.8.8, 8.8.4.4;  # DNS servers
+    option broadcast-address 192.168.1.255;
+    default-lease-time 600;
+    max-lease-time 7200;
+}
+
+sudo nano /etc/default/isc-dhcp-server
+=>
+INTERFACESv4="enxe46f13f486b4"
+INTERFACESv6="enxe46f13f486b4"
+
+sudo nano /etc/netplan/config.yaml
+=>
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eno1:
+      dhcp4: no
+      addresses:
+        - 192.168.20.243/24
+      routes:
+        - to: default
+          via: 192.168.20.254
+        - to: 172.19.0.0/28
+          via: 172.19.0.1
+        - to: 192.168.2.0/24
+          via: 172.19.0.1
+
+    enxe46f13f486b4:
+      dhcp4: no
+      addresses:
+        - 192.168.2.1/24
+      routes:
+        - to: 192.168.2.0/24
+          via: 172.19.0.1
+
+sudo netplan apply
+sudo systemctl start isc-dhcp-server
+sudo systemctl enable isc-dhcp-server
+sudo systemctl status isc-dhcp-server
+
+ip route show
+=>
+default via 192.168.20.254 dev eno1 proto static 
+172.19.0.0/28 dev neko-tun proto kernel scope link src 172.19.0.1 
+192.168.2.0/24 dev enxe46f13f486b4 proto kernel scope link src 192.168.2.1 
+192.168.20.0/24 dev eno1 proto kernel scope link src 192.168.20.243
+
+Nekoray error resolve: sudo ip link delete neko-tun
