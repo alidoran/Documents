@@ -209,3 +209,9 @@ server {
 
 sudo ln -s /etc/nginx/sites-available/nextcloud /etc/nginx/sites-enabled/
 sudo systemctl restart nginx
+
+Active Postgres for NextCloud (After these commands postgres should be appeared in NextCloud welcome page):
+sudo apt install php-pgsql
+sudo systemctl restart php8.3-fpm
+sudo systemctl restart apache2
+php -m | grep pgsql => Output: pgsql
