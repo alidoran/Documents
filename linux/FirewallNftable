@@ -1,0 +1,59 @@
+sudo systemctl stop ufw
+sudo systemctl disable ufw
+sudo apt-get remove --purge ufw
+
+sudo apt-get update
+sudo apt-get install iptables
+
+Table list:
+sudo iptables -L
+
+Allow All Incoming Traffic on Loopback Interface:
+sudo iptables -A INPUT -i lo -j ACCEPT
+
+Allow port:
+sudo iptables -A INPUT -p tcp --dport <port_number> -j ACCEPT
+
+Allow ping:
+sudo iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+
+Allow Incoming Traffic from Specific Subnet:
+sudo iptables -A INPUT -s 192.168.1.0/24 -j ACCEPT
+
+Allow Outgoing Traffic:
+sudo iptables -A OUTPUT -j ACCEPT
+
+Block a Specific IP:
+sudo iptables -A INPUT -s X.X.X.X -j DROP
+
+Block Traffic from a Specific MAC Address:
+sudo iptables -A INPUT -m mac --mac-source XX:XX:XX:XX:XX:XX -j DROP
+
+Allow Traffic on Specific Port (UDP):
+sudo iptables -A INPUT -p udp --dport 53 -j ACCEPT
+
+Block Incoming Traffic on a Specific Port:
+sudo iptables -A INPUT -p tcp --dport 80 -j DROP
+
+Allow Traffic on Specific Port for a Specific IP:
+sudo iptables -A INPUT -p tcp --dport PORT -s X.X.X.X -j ACCEPT
+
+List All Rules (Including Rules for Specific Chains):
+sudo iptables -L -v
+
+Flush All Rules (Reset the Firewall):
+sudo iptables -F
+
+Save Your Rules:
+sudo iptables-save > /etc/iptables/rules.v4
+sudo iptables-save | sudo tee /etc/iptables/rules.v4 > /dev/null
+
+Verify your iptables configuration:
+sudo iptables -L
+
+Check the status of iptables:
+sudo iptables -L
+
+Enable iptables:
+sudo systemctl enable nftables
+
