@@ -1,0 +1,18 @@
+Server:
+sudo nano /etc/ssh/sshd_config
+=>
+PermitRootLogin prohibit-password
+PubkeyAuthentication yes
+PasswordAuthentication no
+
+sudo systemctl restart ssh
+
+Client:
+Generate SSH(You can use exist SSH in ~/.ssh):
+ssh-keygen -t rsa -b 4096
+
+copy SSH to server:
+Local: 
+ssh-copy-id -i ~/.ssh/id_rsa.pub -p 8081 root@www.dorantech.space
+Or Server:
+cat id_rsa.pub >> ~/.ssh/authorized_keys
