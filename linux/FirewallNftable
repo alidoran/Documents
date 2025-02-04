@@ -6,7 +6,7 @@ sudo apt-get update
 sudo apt-get install iptables
 
 Table list:
-sudo iptables -L
+sudo nft -a list chain ip filter INPUT
 
 Allow All Incoming Traffic on Loopback Interface:
 sudo iptables -A INPUT -i lo -j ACCEPT
@@ -56,4 +56,7 @@ sudo iptables -L
 
 Enable iptables:
 sudo systemctl enable nftables
+
+Delete by handle number:
+sudo nft delete rule filter INPUT handle <handle#>
 
